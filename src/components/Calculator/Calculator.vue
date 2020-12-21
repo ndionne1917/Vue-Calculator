@@ -1,4 +1,4 @@
-<template> <div>Hello World</div> </template>
+<template> <div>Calculator</div> </template>
 
 <script>
 export default {
