@@ -4,6 +4,7 @@
 
 <script>
 import Calculator from "./components/Calculator/Calculator.vue";
+
 export default {
   name: "App",
   components: {
@@ -11,3 +12,4 @@ export default {
   },
 };
 </script>
+
