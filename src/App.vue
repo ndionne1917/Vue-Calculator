@@ -12,4 +12,8 @@ export default {
   },
 };
 </script>
-
+<style scoped>
+.calculator {
+  margin-left: 2rem;
+}
+</style>
