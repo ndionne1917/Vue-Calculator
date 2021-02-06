@@ -55,8 +55,10 @@ export default {
 
   methods: {
     calculate() {
-      this.result = eval(this.equation).toString();
-      this.hasCalculated = true;
+      if (!isNaN(this.equation.slice(-1))) {
+        this.result = eval(this.equation).toString();
+        this.hasCalculated = true;
+      }
     },
 
     clear() {
