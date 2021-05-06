@@ -12,7 +12,8 @@
 npm install
 
 npm run serve
-```Cancel changes
+```
+
 ## TODO
 
 - Square and square Root operations buttons
