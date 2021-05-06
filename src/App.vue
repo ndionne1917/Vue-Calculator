@@ -1,5 +1,9 @@
 <template>
-  <div id="app"><calculator></calculator></div>
+  <div id="app">
+    <h1>A Vue.js calculator</h1>
+    <calculator></calculator>
+    <h3>Made by <a href="htttp://www.linkedin.com/in/nicolas-dionne-799495211">Nicolas Dionne</a></h3>
+    </div>
 </template>
 
 <script>
@@ -12,8 +16,14 @@ export default {
   },
 };
 </script>
-<style scoped>
-.calculator {
-  margin-left: 2rem;
+<style scoped lang="scss">
+h1,h3 {
+  font-family:$heading-font;
+  margin-bottom:0;
+}
+div{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
 }
 </style>

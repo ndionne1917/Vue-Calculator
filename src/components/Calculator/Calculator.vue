@@ -127,7 +127,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .calculator {
-  font-family: "Segoe UI";
+  font-family: $primary-font;
   font-size: 1.5rem;
   width: 10rem;
 
@@ -135,39 +135,49 @@ export default {
     padding: 1rem 2rem 1rem 2rem;
     cursor: pointer;
     text-align: center;
-    border: 2px solid rgb(223, 223, 223);
+    border: 2px solid $gainsboro;
+    &:hover:not(.calculator__calculate-button) {
+       background-color: $gray-very-light;  
+    }
+    
   }
 
   &__number {
     font-weight: 600;
+    background-color: $white;
   }
 
   &__button {
-    background-color: rgb(240, 240, 240);
+    background-color: $whitesmoke;
   }
 
   &__calculate-button {
-    background-color: rgb(209, 207, 207);   
+    background-color: $gray-very-light;  
+     &:hover {
+       background-color: $gray-light; 
+    } 
   }
 
   &__display {
     td {
       border-style: inset;
-      background-color: rgb(32, 32, 32);
-      color: white;
-      font-size: 2em;
+      background-color: $ebony;
+      color: $white;
+      font-size: 2.5rem;
       text-align: right;
       padding: 0.5rem 0.5rem 0.5rem 0;
+      pointer-events: none;
     }
   }
 
   &__equation-display {
     td {
       padding: 0 0.5rem 0.2rem 0;
-      height: 1rem;
+      height: 2rem;
       border: none;
       font-size: 0.8rem;
       text-align: right;
+      pointer-events: none;
     }
   }
 }
