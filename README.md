@@ -1,14 +1,14 @@
 # Vue-Calculator
 <p align="center">
   A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers.
-  ![picture](src/assets/abc.png)
+  ![picture](src/assets/readMeImage.png)
 </p>
-  ## Project setup
+## Project setup
 ```
 npm install
 
 npm run serve
-```
+```Cancel changes
 ## TODO
 
 - Square and square Root operations buttons
