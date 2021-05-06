@@ -1,8 +1,10 @@
 # Vue-Calculator
+
 <p align="center">
-  A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers.
+  A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers. </br >
   ![picture](src/assets/readMeImage.png)
 </p>
+
 ## Project setup
 ```
 npm install
