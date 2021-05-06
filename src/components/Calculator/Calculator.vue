@@ -42,80 +42,86 @@
 </template>
 
 <script>
+const DEFAULT_EQUATION = "0";
 export default {
   name: "Calculator",
 
   data() {
     return {
-      equation: "0",
+      equation: DEFAULT_EQUATION,
       hasCalculated: false,
       result: null,
     };
   },
 
   methods: {
-    calculate() {
-      if (!isNaN(this.equation.slice(-1))) {
-        this.result = eval(this.equation).toString();
-        this.hasCalculated = true;
-      }
+    calculate() { 
+      if (this.isValidEquation) this.resetCalculation({hasCalculatedValue:true,equationValue:this.equation,resultValue : eval(this.equation).toString()});
     },
 
     clear() {
-      this.resetResult();
-      this.equation = "0";
+      this.resetCalculation({equationValue:DEFAULT_EQUATION,resultValue:null});   
     },
 
     addNumber(number) {
-      if (this.hasCalculated) {
-        this.resetResult();
-        this.equation = number;
-      } else if (this.equation == "0") this.equation = number;
-      else this.equation += number;
+      if(this.isInError)this.resetCalculation({equationValue:number,resultValue:null});
+      else if(this.equation == DEFAULT_EQUATION) this.resetCalculation({equationValue:number});
+      else this.resetCalculation({equationValue:this.equation+=number})
     },
 
     addOperation(operation) {
-      if (this.hasCalculated) this.resetResult();
-
-      if (isNaN(this.equation.slice(-1)))
-        this.equation = this.equation.slice(0, -1) + operation;
-      else this.equation += operation;
+      if(this.isInError) this.resetCalculation({equationValue:DEFAULT_EQUATION+operation,resultValue:null});
+      else if (this.hasCalculated) this.resetCalculation({equationValue:this.result+operation});
+      else if (!this.isValidEquation) this.resetCalculation({equationValue:this.equation.slice(0, -1) + operation});
+      else this.resetCalculation({equationValue:this.equation+=operation});
     },
 
     addDigit() {
-      if (this.hasCalculated) this.resetResult();
-      if (!this.equation.includes(".")) {
-        this.equation += ".";
-      }
+      if(this.isInError) this.resetCalculation({equationValue:DEFAULT_EQUATION+".",resultValue:null});
+      else if (this.hasCalculated) this.resetCalculation({equationValue:this.result});  
+      if (!this.lastNumberOfEquation.includes('.')) this.equation += ".";
     },
 
-    resetResult() {
-      this.equation = this.result;
-      this.hasCalculated = false;
-    },
+    resetCalculation({hasCalculatedValue = false , equationValue = DEFAULT_EQUATION, resultValue = this.result}) {  
+      this.hasCalculated = hasCalculatedValue;
+      this.equation = equationValue;
+      this.result = resultValue;
+    }
   },
 
   computed: {
     display() {
-      if (this.equation == Infinity) return "MATH ERROR";
+      if (this.isInError) return "MATH ERROR";
       if (this.hasCalculated) return this.result;
 
-      return this.equation.match(/\d+(?!.*\d)/).toString();
+      return this.lastNumberOfEquation;
     },
 
     equationDisplay() {
-      if (this.equation == Infinity) return "";
+      if (this.equation == DEFAULT_EQUATION) return "";
 
       var equationDisplay = this.equation;
-      equationDisplay = equationDisplay.replace("+", " + ");
-      equationDisplay = equationDisplay.replace("-", " - ");
-      equationDisplay = equationDisplay.replace("*", " x ");
-      equationDisplay = equationDisplay.replace("/", " ÷ ");
+      equationDisplay = equationDisplay.replace(/[+]/g, " + ");
+      equationDisplay = equationDisplay.replace(/[-]/g, " - ");
+      equationDisplay = equationDisplay.replace(/[*]/g, " x ");
+      equationDisplay = equationDisplay.replace(/[/]/g, " ÷ ");
       if (this.hasCalculated) equationDisplay += " =";
 
-      if (!isNaN(equationDisplay)) return "";
       return equationDisplay;
     },
+
+    isValidEquation(){
+      return !isNaN(this.equation.slice(-1));
+    },
+
+    isInError(){
+      return Math.abs(this.result) == Infinity || (isNaN(this.result) && this.result != null);
+    },
+
+    lastNumberOfEquation(){
+      const allNumbers = this.equation.match(/\d+(?:\.\d*)?/g);
+      return allNumbers[allNumbers.length - 1];
+    }
   },
 };
 </script>
@@ -141,7 +147,7 @@ export default {
   }
 
   &__calculate-button {
-    background-color: rgb(209, 207, 207);
+    background-color: rgb(209, 207, 207);   
   }
 
   &__display {
