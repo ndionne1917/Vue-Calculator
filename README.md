@@ -1,8 +1,9 @@
 # Vue-Calculator
-
-A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers.
-
-## Project setup
+<p align="center">
+  A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers.
+  ![picture](src/assets/abc.png)
+  ## Project setup
+</p>
 ```
 npm install
 
