@@ -1,24 +1,18 @@
-# calculator
-
+# Vue-Calculator
+<p align="center">
+  A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers.
+  ![picture](src/assets/readMeImage.png)
+</p>
 ## Project setup
 ```
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
+```Cancel changes
+## TODO
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Square and square Root operations buttons
+- Parantheses button
+- Undo button
+- Negative/Positive button
+- Responsive design
