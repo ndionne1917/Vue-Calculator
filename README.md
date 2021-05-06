@@ -2,7 +2,11 @@
 
 <p align="center">
   A simple Vuejs calculator that supports basic operations (+,-,/,*) and float numbers. </br >
-  ![picture](src/assets/readMeImage.png)
+  <p align="center">
+    <img  src="src/assets/readMeImage.jpg">
+  </p>
+
+
 </p>
 
 ## Project setup
