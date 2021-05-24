@@ -15,7 +15,7 @@ npm run serve
 ```
 
 ## TODO
-
+- Unit tests
 - Square and square Root operations buttons
 - Parantheses button
 - Undo button
