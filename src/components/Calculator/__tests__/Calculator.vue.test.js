@@ -7,6 +7,7 @@ const createWrapper = () => {
 };
 
 let wrapper;
+
 describe("Calculator", () => {
   describe("when mounted", () => {
     beforeEach(() => {
@@ -25,6 +26,10 @@ describe("Calculator", () => {
 
   describe("when triggers calculate button with valid equation", () => {
     const calculateFake = jest.spyOn(Calculator.methods, "calculate");
+    const resetCalculationFake = jest.spyOn(
+      Calculator.methods,
+      "resetCalculation"
+    );
     beforeEach(() => {
       wrapper = createWrapper();
       wrapper.find(".calculator__calculate-button").trigger("click");
@@ -32,6 +37,35 @@ describe("Calculator", () => {
 
     it("calls calculate", () => {
       expect(calculateFake).toHaveBeenCalledTimes(1);
+    });
+
+    it("resets calculation", () => {
+      expect(resetCalculationFake).toHaveBeenCalledWith({
+        hasCalculatedValue: true,
+        equationValue: wrapper.vm.$data.equation,
+        resultValue: eval(wrapper.vm.$data.equation).toString(),
+      });
+    });
+  });
+
+  describe("when triggers calculate button with invalid equation", () => {
+    let calculateFake;
+    let resetCalculationFake;
+    beforeEach(() => {
+      jest.clearAllMocks();
+      calculateFake = jest.spyOn(Calculator.methods, "calculate");
+      resetCalculationFake = jest.spyOn(Calculator.methods, "resetCalculation");
+      wrapper = createWrapper();
+      wrapper.setData({ equation: "2*" });
+      wrapper.find(".calculator__calculate-button").trigger("click");
+    });
+
+    it("calls calculate", () => {
+      expect(calculateFake).toHaveBeenCalledTimes(1);
+    });
+
+    it("doesn't reset calculation", () => {
+      expect(resetCalculationFake).not.toHaveBeenCalled();
     });
   });
 });
