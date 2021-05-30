@@ -42,7 +42,7 @@
 </template>
 
 <script>
-const DEFAULT_EQUATION = "0";
+export const DEFAULT_EQUATION = "0";
 export default {
   name: "Calculator",
 
@@ -55,38 +55,66 @@ export default {
   },
 
   methods: {
-    calculate() { 
-      if (this.isValidEquation) this.resetCalculation({hasCalculatedValue:true,equationValue:this.equation,resultValue : eval(this.equation).toString()});
+    calculate() {
+      if (this.isValidEquation)
+        this.resetCalculation({
+          hasCalculatedValue: true,
+          equationValue: this.equation,
+          resultValue: eval(this.equation).toString(),
+        });
     },
 
     clear() {
-      this.resetCalculation({equationValue:DEFAULT_EQUATION,resultValue:null});   
+      this.resetCalculation({
+        equationValue: DEFAULT_EQUATION,
+        resultValue: null,
+      });
     },
 
     addNumber(number) {
-      if(this.isInError)this.resetCalculation({equationValue:number,resultValue:null});
-      else if(this.equation == DEFAULT_EQUATION) this.resetCalculation({equationValue:number});
-      else this.resetCalculation({equationValue:this.equation+=number})
+      if (this.isInError)
+        this.resetCalculation({ equationValue: number, resultValue: null });
+      else if (this.equation == DEFAULT_EQUATION)
+        this.resetCalculation({ equationValue: number });
+      else this.resetCalculation({ equationValue: (this.equation += number) });
     },
 
     addOperation(operation) {
-      if(this.isInError) this.resetCalculation({equationValue:DEFAULT_EQUATION+operation,resultValue:null});
-      else if (this.hasCalculated) this.resetCalculation({equationValue:this.result+operation});
-      else if (!this.isValidEquation) this.resetCalculation({equationValue:this.equation.slice(0, -1) + operation});
-      else this.resetCalculation({equationValue:this.equation+=operation});
+      if (this.isInError)
+        this.resetCalculation({
+          equationValue: DEFAULT_EQUATION + operation,
+          resultValue: null,
+        });
+      else if (this.hasCalculated)
+        this.resetCalculation({ equationValue: this.result + operation });
+      else if (!this.isValidEquation)
+        this.resetCalculation({
+          equationValue: this.equation.slice(0, -1) + operation,
+        });
+      else
+        this.resetCalculation({ equationValue: (this.equation += operation) });
     },
 
     addDigit() {
-      if(this.isInError) this.resetCalculation({equationValue:DEFAULT_EQUATION+".",resultValue:null});
-      else if (this.hasCalculated) this.resetCalculation({equationValue:this.result});  
-      if (!this.lastNumberOfEquation.includes('.')) this.equation += ".";
+      if (this.isInError)
+        this.resetCalculation({
+          equationValue: DEFAULT_EQUATION + ".",
+          resultValue: null,
+        });
+      else if (this.hasCalculated)
+        this.resetCalculation({ equationValue: this.result });
+      if (!this.lastNumberOfEquation.includes(".")) this.equation += ".";
     },
 
-    resetCalculation({hasCalculatedValue = false , equationValue = DEFAULT_EQUATION, resultValue = this.result}) {  
+    resetCalculation({
+      hasCalculatedValue = false,
+      equationValue = DEFAULT_EQUATION,
+      resultValue = this.result,
+    }) {
       this.hasCalculated = hasCalculatedValue;
       this.equation = equationValue;
       this.result = resultValue;
-    }
+    },
   },
 
   computed: {
@@ -110,18 +138,21 @@ export default {
       return equationDisplay;
     },
 
-    isValidEquation(){
+    isValidEquation() {
       return !isNaN(this.equation.slice(-1));
     },
 
-    isInError(){
-      return Math.abs(this.result) == Infinity || (isNaN(this.result) && this.result != null);
+    isInError() {
+      return (
+        Math.abs(this.result) == Infinity ||
+        (isNaN(this.result) && this.result != null)
+      );
     },
 
-    lastNumberOfEquation(){
+    lastNumberOfEquation() {
       const allNumbers = this.equation.match(/\d+(?:\.\d*)?/g);
       return allNumbers[allNumbers.length - 1];
-    }
+    },
   },
 };
 </script>
@@ -137,9 +168,8 @@ export default {
     text-align: center;
     border: 2px solid $gainsboro;
     &:hover:not(.calculator__calculate-button) {
-       background-color: $gray-very-light;  
+      background-color: $gray-very-light;
     }
-    
   }
 
   &__number {
@@ -152,10 +182,10 @@ export default {
   }
 
   &__calculate-button {
-    background-color: $gray-very-light;  
-     &:hover {
-       background-color: $gray-light; 
-    } 
+    background-color: $gray-very-light;
+    &:hover {
+      background-color: $gray-light;
+    }
   }
 
   &__display {
